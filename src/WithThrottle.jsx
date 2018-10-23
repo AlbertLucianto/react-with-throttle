@@ -1,8 +1,8 @@
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
 
-class Throttle extends PureComponent {
+class Throttle extends Component {
   constructor(props) {
     super(props);
 
@@ -12,18 +12,23 @@ class Throttle extends PureComponent {
     };
   }
 
-  componentDidUpdate(prevProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     const {
       value,
       wait,
       options,
     } = this.props;
 
-    if (prevProps.value !== value) this.handleUpdate(value);
+    if (nextProps.value !== value) this.handleUpdate(nextProps.value);
 
-    if (prevProps.wait !== wait || prevProps.options !== options) {
-      this.refreshHandleUpdate(this.props);
+    if (nextProps.wait !== wait || nextProps.options !== options) {
+      this.refreshHandleUpdate(nextProps);
     }
+
+    const { value: currentValue } = this.state;
+    if (nextState.value !== currentValue) return true;
+
+    return false;
   }
 
   refreshHandleUpdate = ({ wait, options }) => {
@@ -45,6 +50,10 @@ class Throttle extends PureComponent {
 }
 
 Throttle.propTypes = {
+  // From parent
+  /**
+   * Value which is throttled and forwarded to children.
+   */
   // eslint-disable-next-line react/forbid-prop-types
   value: PropTypes.any.isRequired,
   wait: PropTypes.number.isRequired,
