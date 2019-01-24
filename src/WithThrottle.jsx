@@ -17,6 +17,7 @@ class Throttle extends Component {
       value,
       wait,
       options,
+      children,
     } = this.props;
 
     if (nextProps.value !== value) this.handleUpdate(nextProps.value);
@@ -27,6 +28,8 @@ class Throttle extends Component {
 
     const { value: currentValue } = this.state;
     if (nextState.value !== currentValue) return true;
+
+    if (nextProps.children !== children) return true;
 
     return false;
   }
