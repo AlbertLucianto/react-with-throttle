@@ -2,14 +2,12 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
 
-class Throttle extends Component {
+class WithThrottle extends Component {
   constructor(props) {
     super(props);
 
     this.refreshHandleUpdate(props);
-    this.state = {
-      value: props.value,
-    };
+    this.handleUpdate(props.value);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -20,7 +18,10 @@ class Throttle extends Component {
       children,
     } = this.props;
 
-    if (nextProps.value !== value) this.handleUpdate(nextProps.value);
+    if (nextProps.value !== value) {
+      // `setTimeout` to avoid setState in shouldComponentUpdate
+      setTimeout(() => this.handleUpdate(nextProps.value));
+    }
 
     if (nextProps.wait !== wait || nextProps.options !== options) {
       this.refreshHandleUpdate(nextProps);
@@ -34,7 +35,15 @@ class Throttle extends Component {
     return false;
   }
 
+  componentWillUnmount() {
+    this.handleUpdate.cancel();
+  }
+
   refreshHandleUpdate = ({ wait, options }) => {
+    if (this.handleUpdate) {
+      this.handleUpdate.cancel();
+    }
+
     this.handleUpdate = throttle(
       this.updateValue,
       wait,
@@ -42,7 +51,14 @@ class Throttle extends Component {
     );
   }
 
-  updateValue = value => this.setState({ value });
+  updateValue = (value) => {
+    if (!this.state) { // Only to be called by constructor
+      // eslint-disable-next-line react/no-direct-mutation-state
+      this.state = { value };
+    } else {
+      this.setState({ value });
+    }
+  }
 
   render() {
     const { children } = this.props;
@@ -52,7 +68,7 @@ class Throttle extends Component {
   }
 }
 
-Throttle.propTypes = {
+WithThrottle.propTypes = {
   // From parent
   /**
    * Value which is throttled and forwarded to children.
@@ -67,8 +83,8 @@ Throttle.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-Throttle.defaultProps = {
+WithThrottle.defaultProps = {
   options: undefined,
 };
 
-export default Throttle;
+export default WithThrottle;
