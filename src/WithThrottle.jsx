@@ -59,6 +59,14 @@ class WithThrottle extends Component {
     );
   }
 
+  /**
+   * Passing `pending` parameter to avoid calling `forceUpdate`
+   * (or previously when using reactive value with `setState`)
+   * during `shouldComponentUpdate`.
+   *
+   * This `pending` as a context must be known during later
+   * invocation of the function.
+   */
   updateValue = (value, pending) => {
     this.value = value;
 
