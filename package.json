@@ -1,6 +1,6 @@
 {
   "name": "react-with-throttle",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React component wrapper for throttling value",
   "author": "Albert Lucianto <albertlucianto@gmail.com>",
   "main": "dist/react-with-throttle.umd.js",
