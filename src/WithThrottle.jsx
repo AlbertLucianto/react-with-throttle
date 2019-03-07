@@ -1,16 +1,22 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import throttle from 'lodash/throttle';
+import throttle from './utils/lodash/throttle';
 
+/**
+ * Using non-reactive attribute `value`.
+ * This is by far the most straightforward way to
+ * handle throttling and avoid unnecessary rerendering.
+ */
 class WithThrottle extends Component {
   constructor(props) {
     super(props);
+    this.instantiating = true;
 
     this.refreshHandleUpdate(props);
     this.handleUpdate(props.value);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     const {
       value,
       wait,
@@ -18,18 +24,23 @@ class WithThrottle extends Component {
       children,
     } = this.props;
 
-    if (nextProps.value !== value) this.handleUpdate(nextProps.value);
+    let shouldUpdate = false;
 
     if (nextProps.wait !== wait || nextProps.options !== options) {
       this.refreshHandleUpdate(nextProps);
     }
 
-    const { value: currentValue } = this.state;
-    if (nextState.value !== currentValue) return true;
+    if (nextProps.value !== value) {
+      const isPending = this.handleUpdate.pending();
+      this.handleUpdate(nextProps.value, isPending);
+      shouldUpdate = shouldUpdate || !isPending;
+    }
 
-    if (nextProps.children !== children) return true;
+    if (nextProps.children !== children) {
+      shouldUpdate = true;
+    }
 
-    return false;
+    return shouldUpdate;
   }
 
   componentWillUnmount() {
@@ -48,20 +59,16 @@ class WithThrottle extends Component {
     );
   }
 
-  updateValue = (value) => {
-    if (!this.state) { // Only to be called by constructor
-      // eslint-disable-next-line react/no-direct-mutation-state
-      this.state = { value };
-    } else {
-      this.setState({ value });
-    }
+  updateValue = (value, pending) => {
+    this.value = value;
+
+    if (pending) this.forceUpdate();
   }
 
   render() {
     const { children } = this.props;
-    const { value } = this.state;
 
-    return children(value);
+    return children(this.value);
   }
 }
 
