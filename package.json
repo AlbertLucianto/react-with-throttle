@@ -27,7 +27,8 @@
     "build:browser": "rollup --config build/rollup.browser.js",
     "build:es": "rollup --config build/rollup.es.js",
     "build:umd": "rollup --config build/rollup.umd.js",
-    "build": "npm run build:browser && npm run build:es && npm run build:umd && npm run build:web"
+    "build": "npm run build:browser && npm run build:es && npm run build:umd && npm run build:web",
+    "coverage": "codecov -f __test__/coverage/coverage-final.json"
   },
   "dependencies": {
     "prop-types": "^15.6.2"
@@ -43,6 +44,7 @@
     "babel-loader": "^8.0.4",
     "babel-plugin-react-css-modules": "^5.2.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "codecov": "^3.2.0",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
     "eslint": "^5.7.0",
