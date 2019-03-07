@@ -18,10 +18,7 @@ class WithThrottle extends Component {
       children,
     } = this.props;
 
-    if (nextProps.value !== value) {
-      // `setTimeout` to avoid setState in shouldComponentUpdate
-      setTimeout(() => this.handleUpdate(nextProps.value));
-    }
+    if (nextProps.value !== value) this.handleUpdate(nextProps.value);
 
     if (nextProps.wait !== wait || nextProps.options !== options) {
       this.refreshHandleUpdate(nextProps);
