@@ -134,4 +134,22 @@ describe('WithThrottle', () => {
 
     done();
   });
+
+  test('should render normally if interval is longer than throttle', async (done) => {
+    const container = render(<TickingCounter
+      interval={250}
+      wait={100}
+    />);
+
+    const div = container.baseElement.querySelector('div');
+    expect(div.innerHTML).toBe('0');
+
+    await waitFor(260);
+    expect(div.innerHTML).toBe('1');
+
+    await waitFor(250);
+    expect(div.innerHTML).toBe('2');
+
+    done();
+  });
 });

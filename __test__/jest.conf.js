@@ -10,6 +10,10 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest',
   },
   coverageDirectory: '<rootDir>/__test__/coverage',
-  collectCoverageFrom: ['src/**/*.{js,jsx}', '!**/node_modules/**'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx}',
+    '!src/utils/lodash/*.js',
+    '!**/node_modules/**',
+  ],
   testPathIgnorePatterns: ['/node_modules/'],
 };
