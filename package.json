@@ -2,10 +2,23 @@
   "name": "react-with-throttle",
   "version": "0.0.1",
   "description": "React component wrapper for throttling value",
-  "main": "src/index.js",
-  "repository": "git@github.com:AlbertLucianto/react-with-throttle.git",
   "author": "Albert Lucianto <albertlucianto@gmail.com>",
+  "main": "dist/react-with-throttle.umd.js",
+  "module": "dist/react-with-throttle.esm.js",
+  "unpkg": "dist/react-with-throttle.min.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlbertLucianto/react-with-throttle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlbertLucianto/react-with-throttle/issues"
+  },
+  "homepage": "https://github.com/AlbertLucianto/react-with-throttle",
+  "keywords": [
+    "react",
+    "throttle"
+  ],
   "scripts": {
     "unit": "cross-env NODE_ENV=test jest --config __test__/jest.conf.js --coverage",
     "test": "npm run unit",
