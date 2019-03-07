@@ -1,0 +1,9 @@
+__test__
+build
+node_modules
+src
+web
+.babelrc
+.eslintrc.json
+.travis.yml
+codecov.yml
