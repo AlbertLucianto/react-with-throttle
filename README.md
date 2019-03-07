@@ -55,7 +55,7 @@ class FloatingTextOnScroll extends Component {
 
 ### ⚠️ Note ⚠️
 
-Make sure your render function is not recreated every time the parent rerenders. So are for the other props when passing an object or other non-primitive types. For example:
+Make sure your render function is not recreated every time the parent rerenders. The same with the other props when passing an object or other non-primitive types. For example:
 
 #### Incorrect ❌
 
