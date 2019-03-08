@@ -1,0 +1,80 @@
+.app {
+  padding: 20px;
+  width: 100%;
+  max-width: 450px;
+  margin: -30px auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 15px 25px -10px rgba(black, .1);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+
+  &__spinner {
+    font-size: 72px;
+    font-weight: 600;
+    user-select: none;
+    justify-content: center;
+    display: inline-flex;
+
+    > div {
+      width: 50px;
+      height: 80px;
+    }
+  }
+
+  &__spinner-wrapper {
+    display: inline-block;
+    position: relative;
+    opacity: 1;
+    transition: opacity .5s ease .1s;
+
+    &.dragging {
+      opacity: .5;
+
+      .ms {
+        opacity: 0;
+        transition: opacity .5s ease;
+      }
+    }
+
+    .ms {
+      font-weight: 600;
+      position: absolute;
+      left: 100%;
+      bottom: 0;
+      font-size: 18px;
+      transition: opacity .5s ease .25s;
+    }
+  }
+
+  .label {
+    margin: 15px 0 5px 0;
+    transition: opacity .5s ease .2s;
+
+    &.dragging {
+      opacity: 0;
+      transition: opacity .5s ease;
+    }
+  }
+}
+
+.banner {
+  width: 100%;
+  max-width: 900px;
+  object-fit: contain;
+  margin: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+
+body {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F8F8F8;
+  color: #2c3e50;
+  margin: 0;
+}

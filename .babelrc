@@ -9,9 +9,20 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "transform-react-jsx",
+    "react-hot-loader/babel",
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    ["react-css-modules", {
+      "filetypes": {
+        ".scss": {
+          "syntax": "postcss-scss",
+          "plugins": ["postcss-nested"]
+        }
+      },
+      "generateScopedName": "[local]--[hash:base64:5]",
+      "webpackHotModuleReloading": true,
+      "handleMissingStyleName": "warn"
+    }]
   ],
   "env": {
     "test": {

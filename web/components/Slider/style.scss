@@ -1,0 +1,28 @@
+.slider {
+  display: inline-block;
+  position: relative;
+  width: 280px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: #F8F8F8;
+  box-shadow: 0 3px 8px -2px rgba(black, .2) inset;
+
+  &__handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #00b0cf;
+    box-shadow: 0 2px 5px rgba(#00b0cf, .5);
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    transition: width .1s ease, height .1s ease, transform .1s ease;
+
+    &:hover,
+    &.dragging {
+      width: 25px;
+      height: 25px;
+      cursor: ew-resize;
+    }
+  }
+}

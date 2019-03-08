@@ -73,7 +73,7 @@ class Foo extends Component {
         value={{ foo: foo + 1, bar }} // object will be recreated every rerender
         options={{ leading: true, trailing: true }} // Also in this one
       >
-        {(value) => `${foo}-${bar}`} {/* function will be recreated */}
+        {(value) => `${value.foo}-${value.bar}`} {/* function will be recreated */}
       </WithThrottle>
     )
   }

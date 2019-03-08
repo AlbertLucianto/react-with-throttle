@@ -1,0 +1,14 @@
+.element_spinner-container {
+	position: relative;
+	transform-style: preserve-3d;
+	overflow: hidden;
+}
+
+.element {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	backface-visibility: hidden;
+	transition: transform .4s, opacity .4s;
+	transform-style: preserve-3d;
+}

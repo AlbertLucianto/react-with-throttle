@@ -2,8 +2,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
+  context: path.join(__dirname, '..'),
   devtool: 'eval',
-  entry: './web/index.js',
+  entry: './web/index.jsx',
   output: {
     path: path.join(__dirname, '../dist/web'),
     filename: 'static/[name]-[hash].js',
@@ -37,6 +38,15 @@ module.exports = {
           'postcss-loader',
           'sass-loader',
         ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        // Default fallback to 'file-loader'
+        options: {
+          limit: 10000,
+          name: 'img/[name].[hash:7].[ext]',
+        },
       },
     ],
   },
