@@ -9,11 +9,11 @@
   text-align: center;
   position: relative;
   z-index: 2;
+  user-select: none;
 
   &__spinner {
     font-size: 72px;
     font-weight: 600;
-    user-select: none;
     justify-content: center;
     display: inline-flex;
 
@@ -42,7 +42,7 @@
       font-weight: 600;
       position: absolute;
       left: 100%;
-      bottom: 0;
+      bottom: 10px;
       font-size: 18px;
       transition: opacity .5s ease .25s;
     }
@@ -67,7 +67,6 @@
   display: block;
   position: relative;
   z-index: 1;
-  user-select: none;
 }
 
 body {

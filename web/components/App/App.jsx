@@ -1,14 +1,19 @@
 import React, { PureComponent, Fragment } from 'react';
 import { hot } from 'react-hot-loader';
-import WithThrottle from 'react-with-throttle';
 import cx from 'classnames';
+import memo from 'memoize-one';
+import WithThrottle from '../../../src';
 import Slider from '../Slider';
 import NumberWithSpinner from '../NumberWithSpinner';
+import ForkTag from '../ForkTag';
 import banner from '../../assets/react-with-throttle-header.jpg';
 
 import './style.scss';
 
 const INITIAL_VALUE = 250;
+const OPTIONS = {
+  trailing: true,
+};
 
 class App extends PureComponent {
   state = {
@@ -17,18 +22,25 @@ class App extends PureComponent {
     dragging: false,
   };
 
+  // eslint-disable-next-line
+  makeValue = memo((value, wait, dragging) => ({
+    value,
+    wait,
+    dragging,
+  }));
+
   setValue = value => this.setState({ value });
 
   setThrottle = () => this.setState(({ value }) => ({ wait: value }));
 
   setDragging = dragging => this.setState({ dragging });
 
-  renderSpinner = value => (
+  renderSpinner = ({ value, wait, dragging }) => (
     <NumberWithSpinner
-      value={value}
+      value={dragging ? value : wait}
       styleName="app__spinner"
     />
-  );
+  )
 
   render() {
     const { value, wait, dragging } = this.state;
@@ -50,14 +62,16 @@ class App extends PureComponent {
           <div styleName={cx('label', { dragging })}>Throttle interval:</div>
           <div styleName={cx('app__spinner-wrapper', { dragging })}>
             <WithThrottle
-              value={value}
+              value={this.makeValue(value, wait, dragging)}
               wait={wait}
+              options={OPTIONS}
             >
               {this.renderSpinner}
             </WithThrottle>
             <div styleName="ms">ms</div>
           </div>
         </div>
+        <ForkTag />
       </Fragment>
     );
   }

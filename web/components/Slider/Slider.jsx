@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import './style.scss';
 
-const MAX = 1000;
+const MAX = 500;
 const MIN = 100;
 
 const normalize = value => Math.round(Math.min(Math.max(value, MIN), MAX));

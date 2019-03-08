@@ -13,7 +13,7 @@ class WithThrottle extends Component {
     this.instantiating = true;
 
     this.refreshHandleUpdate(props);
-    this.handleUpdate(props.value);
+    this.handleUpdate(props.value, false);
   }
 
   shouldComponentUpdate(nextProps) {
