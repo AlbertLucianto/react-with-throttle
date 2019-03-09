@@ -60,12 +60,11 @@ class Slider extends PureComponent {
   }
 
   endDrag = () => {
-    const { onRelease, onDrag } = this.props;
+    const { onDrag } = this.props;
     const { dragging } = this.state;
 
     if (dragging) {
       this.setState({ dragging: false });
-      onRelease();
       onDrag(false);
     }
   }
@@ -90,7 +89,6 @@ class Slider extends PureComponent {
 Slider.propTypes = {
   value: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  onRelease: PropTypes.func.isRequired,
   onDrag: PropTypes.func.isRequired,
 };
 

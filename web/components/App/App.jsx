@@ -1,16 +1,17 @@
 import React, { PureComponent, Fragment } from 'react';
 import { hot } from 'react-hot-loader';
 import cx from 'classnames';
-import memo from 'memoize-one';
 import WithThrottle from '../../../src';
 import Slider from '../Slider';
 import NumberWithSpinner from '../NumberWithSpinner';
 import ForkTag from '../ForkTag';
+import DivingScroll from '../DivingScroll';
 import banner from '../../assets/react-with-throttle-header.jpg';
 
 import './style.scss';
 
 const INITIAL_VALUE = 250;
+const WAIT = 100;
 const OPTIONS = {
   trailing: true,
 };
@@ -18,32 +19,22 @@ const OPTIONS = {
 class App extends PureComponent {
   state = {
     value: INITIAL_VALUE,
-    wait: INITIAL_VALUE,
     dragging: false,
   };
 
-  // eslint-disable-next-line
-  makeValue = memo((value, wait, dragging) => ({
-    value,
-    wait,
-    dragging,
-  }));
-
   setValue = value => this.setState({ value });
-
-  setThrottle = () => this.setState(({ value }) => ({ wait: value }));
 
   setDragging = dragging => this.setState({ dragging });
 
-  renderSpinner = ({ value, wait, dragging }) => (
+  renderSpinner = value => (
     <NumberWithSpinner
-      value={dragging ? value : wait}
+      value={value}
       styleName="app__spinner"
     />
   )
 
   render() {
-    const { value, wait, dragging } = this.state;
+    const { value, dragging } = this.state;
 
     return (
       <Fragment>
@@ -56,14 +47,13 @@ class App extends PureComponent {
           <Slider
             value={value}
             onChange={this.setValue}
-            onRelease={this.setThrottle}
             onDrag={this.setDragging}
           />
           <div styleName={cx('label', { dragging })}>Throttle interval:</div>
           <div styleName={cx('app__spinner-wrapper', { dragging })}>
             <WithThrottle
-              value={this.makeValue(value, wait, dragging)}
-              wait={wait}
+              value={value}
+              wait={WAIT}
               options={OPTIONS}
             >
               {this.renderSpinner}
@@ -71,6 +61,7 @@ class App extends PureComponent {
             <div styleName="ms">ms</div>
           </div>
         </div>
+        <DivingScroll wait={value} />
         <ForkTag />
       </Fragment>
     );

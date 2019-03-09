@@ -1,8 +1,9 @@
 .app {
+  box-sizing: border-box;
   padding: 20px;
   width: 100%;
   max-width: 450px;
-  margin: -30px auto;
+  margin: -30px auto 10px auto;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 15px 25px -10px rgba(black, .1);
@@ -12,14 +13,14 @@
   user-select: none;
 
   &__spinner {
-    font-size: 72px;
+    font-size: 48px;
     font-weight: 600;
     justify-content: center;
     display: inline-flex;
 
     > div {
-      width: 50px;
-      height: 80px;
+      width: 36px;
+      height: 60px;
     }
   }
 

@@ -1,0 +1,48 @@
+.diving-scroll {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 15px 25px -10px rgba(black, .1);
+  
+  .container {
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+
+    > div {
+      height: 2400px;
+      width: 100%;
+      background: linear-gradient(to bottom, #00d8ff, #00163a)
+    }
+  }
+
+  .depth-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: 600;
+    justify-content: center;
+    display: inline-flex;
+    color: white;
+    pointer-events: none;
+
+    > div {
+      width: 36px;
+      height: 120px;
+    }
+  }
+
+  .mouse {
+    transition: opacity .2s ease;
+
+    &.hidden {
+      opacity: 0;
+    }
+  }
+}
