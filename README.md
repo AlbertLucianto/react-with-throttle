@@ -15,9 +15,7 @@
 ## Installation
 
 ```bash
-npm install --save react-with-throttle
-# or
-yarn add react-with-throttle
+$ yarn add react-with-throttle # or using npm
 ```
 
 ## Overview
@@ -53,7 +51,7 @@ class FloatingTextOnScroll extends Component {
 }
 ```
 
-### ⚠️ Note ⚠️
+### ⚠️ Important Note ⚠️
 
 Make sure your render function is not recreated every time the parent rerenders. The same with the other props when passing an object or other non-primitive types. For example:
 
@@ -111,6 +109,34 @@ class Foo extends Component {
       </WithThrottle>
     )
   }
+}
+```
+
+#### Using Hook ✅
+
+```jsx
+import React, { useMemo } from 'react';
+import useSomeState from './utils';
+
+const options = { leading: true, trailing: true };
+
+function Foo() {
+  const [state] = useSomeState();
+  const value = useMemo(() => ({
+    foo: state.foo + 1,
+    bar: state.bar,
+  }), [state.foo, state.bar]);
+  const renderContent = useCallback(({ foo, bar }) => `${foo}-${bar}`);
+
+  return (
+    <WithThrottle
+      wait={100}
+      value={value}
+      options={options}
+    >
+      {renderContent}
+    </WithThrottle>
+  );
 }
 ```
 
