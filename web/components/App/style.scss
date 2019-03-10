@@ -12,6 +12,10 @@
   z-index: 2;
   user-select: none;
 
+  @media screen and (max-width: 600px) {
+    margin-top: 0;
+  }
+
   &__spinner {
     font-size: 48px;
     font-weight: 600;

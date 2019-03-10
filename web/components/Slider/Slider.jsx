@@ -29,19 +29,24 @@ class Slider extends PureComponent {
   componentDidMount() {
     window.addEventListener('mousemove', this.handleDrag);
     window.addEventListener('mouseup', this.endDrag);
+    window.addEventListener('touchmove', this.handleDrag);
+    window.addEventListener('touchend', this.endDrag);
   }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleDrag);
     window.removeEventListener('mouseup', this.endDrag);
+    window.removeEventListener('touchmove', this.handleDrag);
+    window.removeEventListener('touchend', this.endDrag);
   }
 
   startDrag = (e) => {
     const { value, onDrag } = this.props;
+    const { clientX } = (e.touches && e.touches[0]) || e;
 
     this.setState({
       dragging: true,
-      startPosition: e.clientX,
+      startPosition: clientX,
       lastValue: value,
     });
 
@@ -51,10 +56,11 @@ class Slider extends PureComponent {
   handleDrag = (e) => {
     const { dragging, startPosition, lastValue } = this.state;
     const { onChange } = this.props;
+    const { clientX } = (e.touches && e.touches[0]) || e;
 
     if (dragging) {
       const { left, right } = this.slider.current.getBoundingClientRect();
-      const change = computeValueChange(e.clientX - startPosition, left, right);
+      const change = computeValueChange(clientX - startPosition, left, right);
       onChange(normalize(lastValue + change));
     }
   }
@@ -79,6 +85,7 @@ class Slider extends PureComponent {
           styleName={cx('slider__handle', { dragging })}
           style={computeStyle(value)}
           onMouseDown={this.startDrag}
+          onTouchStart={this.startDrag}
           role="presentation"
         />
       </div>
