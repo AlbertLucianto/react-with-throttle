@@ -157,4 +157,4 @@ Changes are tracked in the [changelog](CHANGELOG.md).
 
 ## License
 
-vuex-search is available under the MIT License.
+react-with-throttle is available under the MIT License.
