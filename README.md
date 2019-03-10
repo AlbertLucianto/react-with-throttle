@@ -29,15 +29,11 @@ import React, { Component } from 'react';
 import WithThrottle from 'react-with-throttle';
 
 class FloatingTextOnScroll extends Component {
-  render() {
-    return (
-      <BodyScroll>
-        {this.renderContent}
-      </BodyScroll>
-    );
-  }
+  // ... listen scrollTop of body
 
-  renderContent(top) {
+  render() {
+    const { top } = this.state;
+
     return (
       <WithThrottle value={top} wait={120}>
         {this.renderText}
@@ -63,22 +59,24 @@ import WithThrottle from 'react-with-throttle';
 
 class Foo extends Component {
   render() {
-    const { foo, bar } = this.state;
+    const { foo } = this.state;
   
     return (
       <WithThrottle
         wait={100}
-        value={{ foo: foo + 1, bar }} // object will be recreated every rerender
+        value={{ bar: foo }} // object will be recreated every rerender
         options={{ leading: true, trailing: true }} // Also in this one
       >
-        {(value) => `${value.foo}-${value.bar}`} {/* function will be recreated */}
+        {(value) => `${value.bar}-baz`} {/* function will be recreated */}
       </WithThrottle>
     )
   }
 }
 ```
 
-There is no way react-with-throttle should handle deep changes of its props. Instead, keep the non-primitive props' references to avoid unexpected behaviour or performance issue. You can also use memoization to achieve this, one good library is [memoize-one](https://github.com/alexreardon/memoize-one).
+react-with-throttle is responsible for limiting rerendering of `value` changes. Conversely, the other props are shallowly compared. So, if these props keep changing, there is no way it can throttle the rerendering.
+
+Hence, you need to keep the non-primitive props' references to avoid unexpected behaviour or performance issue. You can also use memoization to achieve this, one good library is [memoize-one](https://github.com/alexreardon/memoize-one).
 
 #### Correction ✅
 
@@ -90,19 +88,19 @@ import memo from 'memoize-one';
 const options = { leading: true, trailing: true };
 
 class Foo extends Component {
-  makeValue = memo((foo, bar) => ({ foo: foo + 1, bar }));
+  makeValue = memo(foo => ({ bar: foo }));
 
   renderContent(value) {
-    return `${foo}-${bar}`;
+    return `${value.bar}-baz`;
   }
 
   render() {
-    const { foo, bar } = this.state;
+    const { foo } = this.state;
 
     return (
       <WithThrottle
         wait={100}
-        value={this.makeValue(foo, bar)}
+        value={this.makeValue(foo)}
         options={options}
       >
         {this.renderContent}
@@ -122,11 +120,8 @@ const options = { leading: true, trailing: true };
 
 function Foo() {
   const [state] = useSomeState();
-  const value = useMemo(() => ({
-    foo: state.foo + 1,
-    bar: state.bar,
-  }), [state.foo, state.bar]);
-  const renderContent = useCallback(({ foo, bar }) => `${foo}-${bar}`);
+  const value = useMemo(() => ({ bar: state.foo }), [state.foo]);
+  const renderContent = useCallback(({ bar }) => `${bar}-baz`);
 
   return (
     <WithThrottle
@@ -146,7 +141,7 @@ function Foo() {
 
 Name         | Description | Type | Default
 -------------|-----------|-----------|---------
-`value` | Value to be throttled and forwarded to the `children` render function. | `any` |
+`value` | Value to be throttled and forwarded to the `children` render function by argument. | `any` |
 `wait` | Throttle interval in ms. In other words, the component will not rerender until the wait time after `value` changes. | `number` |
 `children` | Render prop with the forwarded throttled `value`. | `(value: any) => Node` |
 `options` | Throttling options. Please refer to [lodash throttle documentation](https://lodash.com/docs/4.17.11#throttle). | `[{[leading]: boolean, [trailing]: boolean }]` | `undefined`
