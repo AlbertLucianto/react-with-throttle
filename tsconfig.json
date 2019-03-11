@@ -7,9 +7,11 @@
     "sourceMap": true,
     "module": "es6",
     "target": "es5",
-    "jsx": "react"
+    "jsx": "react",
+    "esModuleInterop": true
   },
   "include": [
     "./src/**/*"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { hot } from 'react-hot-loader';
 import cx from 'classnames';
-import WithThrottle from '../../../src';
+import WithThrottle from '../../../dist/index.esm';
 import Slider from '../Slider';
 import NumberWithSpinner from '../NumberWithSpinner';
 import ForkTag from '../ForkTag';

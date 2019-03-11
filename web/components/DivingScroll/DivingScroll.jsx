@@ -6,9 +6,9 @@ import React, {
 } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import WithThrottle from '../../../dist/index.esm';
 import ScrollIcon from '../ScrollIcon';
 import NumberWithSpinner from '../NumberWithSpinner';
-import WithThrottle from '../../../src/WithThrottle';
 
 import './style.scss';
 

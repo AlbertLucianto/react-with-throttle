@@ -1,8 +1,9 @@
 import { Component } from 'react';
-import throttle, {
+import throttle from './utils/lodash/throttle';
+import {
   IThrottledFunction,
   IThrottleOptions,
-} from './utils/lodash/throttle';
+} from './utils/lodash/throttleTypes';
 
 interface IWithThrottleProps<T> {
   value: T;
@@ -91,7 +92,7 @@ class WithThrottle<T> extends Component<IWithThrottleProps<T>> {
    * This `pending` as a context must be known during later
    * invocation of the function.
    */
-  private updateValue = (value: any, pending: boolean) => {
+  private updateValue = (value: T, pending: boolean) => {
     this.value = value;
 
     if (pending) {
