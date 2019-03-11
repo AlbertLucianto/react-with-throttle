@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   context: path.join(__dirname, '..'),
-  devtool: 'eval',
+  devtool: 'inline-source-map',
   entry: './web/index.jsx',
   output: {
     path: path.join(__dirname, '../dist/web'),
@@ -19,6 +19,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'ts-loader',
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
@@ -30,9 +35,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
               sourceMap: true,
-              localIdentName: '[local]--[hash:base64:5]',
             },
           },
           'postcss-loader',
@@ -51,7 +54,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   devServer: {
     contentBase: 'dist',

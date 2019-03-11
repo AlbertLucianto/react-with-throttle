@@ -1,42 +1,44 @@
+import cx from 'classnames';
 import React, {
-  useState,
+  memo,
   useCallback,
   useRef,
-  memo,
+  useState,
 } from 'react';
-import cx from 'classnames';
-import PropTypes from 'prop-types';
-import ScrollIcon from '../ScrollIcon';
+import WithThrottle from 'react-with-throttle';
 import NumberWithSpinner from '../NumberWithSpinner';
-import WithThrottle from '../../../src/WithThrottle';
-
+import ScrollIcon from '../ScrollIcon';
 import './style.scss';
 
-const renderDepth = depth => (
+interface IDivingScrollProps {
+  wait: number;
+}
+
+const renderDepth = (depth: number) => (
   <NumberWithSpinner
     value={depth}
-    styleName="depth-spinner"
+    className="depth-spinner"
   />
 );
 
-function DivingScroll({ wait }) {
+function DivingScroll({ wait }: IDivingScrollProps) {
   const container = useRef(null);
   const [depth, setDepth] = useState(0);
-  const onScrollSetDepth = useCallback((e) => {
-    setDepth(Math.floor(e.target.scrollTop));
-  });
+  const onScrollSetDepth = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    setDepth(Math.floor((e.target as HTMLDivElement).scrollTop));
+  }, []);
 
   const content = useRef(null);
   const mouseHidden = container.current
     && (depth + container.current.clientHeight >= content.current.clientHeight);
 
   return (
-    <div styleName="diving-scroll">
-      <div styleName={cx('mouse', { hidden: mouseHidden })}>
+    <div className="diving-scroll">
+      <div className={cx('mouse', { hidden: mouseHidden })}>
         <ScrollIcon />
       </div>
       <div
-        styleName="container"
+        className="container"
         ref={container}
         onScroll={onScrollSetDepth}
       >
@@ -48,9 +50,5 @@ function DivingScroll({ wait }) {
     </div>
   );
 }
-
-DivingScroll.propTypes = {
-  wait: PropTypes.number.isRequired,
-};
 
 export default memo(DivingScroll);

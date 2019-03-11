@@ -5,5 +5,8 @@ src
 web
 .babelrc
 .eslintrc.json
+tsconfig.json
+tslint.json
 .travis.yml
 codecov.yml
+tmp

@@ -1,18 +1,39 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import cjs from 'rollup-plugin-commonjs';
+import typescript from 'rollup-plugin-typescript2';
 import replace from 'rollup-plugin-replace';
+import ts from 'typescript';
 
-const config = require('../package.json');
+const pkg = require('../package.json');
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
+  output: [
+    {
+      file: pkg.module,
+      format: 'es',
+    },
+    {
+      file: pkg.main,
+      format: 'umd',
+      name: 'react-with-throttle',
+      globals: {
+        react: 'React',
+      },
+    },
+  ],
   plugins: [
+    typescript({
+      typescript: ts,
+      cacheRoot: './tmp',
+      rollupCommonJSResolveHack: true,
+    }),
     resolve({
       jsnext: true,
       main: true,
       browser: true,
-      extensions: ['.js', '.jsx', '.json'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     }),
     cjs({
       include: 'node_modules/**',
@@ -25,7 +46,7 @@ export default {
       exclude: 'node_modules/**',
     }),
     replace({
-      VERSION: JSON.stringify(config.version),
+      VERSION: JSON.stringify(pkg.version),
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
   ],
