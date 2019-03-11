@@ -1,6 +1,6 @@
 // tslint:disable: no-var-requires
-const debounce = require('./debounce');
-const isObject = require('./isObject');
+const debounce = require('./debounce').default;
+const isObject = require('./isObject').default;
 
 interface IThrottleOptions {
   leading?: boolean;
