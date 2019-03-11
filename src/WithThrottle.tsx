@@ -1,22 +1,40 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
-import throttle from './utils/lodash/throttle';
+import throttle, {
+  IThrottledFunction,
+  IThrottleOptions,
+} from './utils/lodash/throttle';
+
+interface IWithThrottleProps<T> {
+  value: T;
+  wait: number;
+  options: IThrottleOptions;
+  children: (value: T) => JSX.Element|string;
+}
+
+interface IUpdateThrottleOptions {
+  wait: number;
+  options: IThrottleOptions;
+}
+
+type UpdateValueCallback<T> = (value: T, pending: boolean) => void;
 
 /**
  * Using non-reactive attribute `value`.
  * This is by far the most straightforward way to
  * handle throttling and avoid unnecessary rerendering.
  */
-class WithThrottle extends Component {
-  constructor(props) {
+class WithThrottle<T> extends Component<IWithThrottleProps<T>> {
+  private handleUpdate: UpdateValueCallback<T> & IThrottledFunction;
+  private value: T;
+
+  constructor(props: IWithThrottleProps<T>) {
     super(props);
-    this.instantiating = true;
 
     this.refreshHandleUpdate(props);
     this.handleUpdate(props.value, false);
   }
 
-  shouldComponentUpdate(nextProps) {
+  public shouldComponentUpdate(nextProps: IWithThrottleProps<T>) {
     const {
       value,
       wait,
@@ -43,11 +61,17 @@ class WithThrottle extends Component {
     return shouldUpdate;
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.handleUpdate.cancel();
   }
 
-  refreshHandleUpdate = ({ wait, options }) => {
+  public render() {
+    const { children } = this.props;
+
+    return children(this.value);
+  }
+
+  private refreshHandleUpdate = ({ wait, options }: IUpdateThrottleOptions) => {
     if (this.handleUpdate) {
       this.handleUpdate.cancel();
     }
@@ -67,36 +91,13 @@ class WithThrottle extends Component {
    * This `pending` as a context must be known during later
    * invocation of the function.
    */
-  updateValue = (value, pending) => {
+  private updateValue = (value: any, pending: boolean) => {
     this.value = value;
 
-    if (pending) this.forceUpdate();
-  }
-
-  render() {
-    const { children } = this.props;
-
-    return children(this.value);
+    if (pending) {
+      this.forceUpdate();
+    }
   }
 }
-
-WithThrottle.propTypes = {
-  // From parent
-  /**
-   * Value which is throttled and forwarded to children.
-   */
-  // eslint-disable-next-line react/forbid-prop-types
-  value: PropTypes.any.isRequired,
-  wait: PropTypes.number.isRequired,
-  options: PropTypes.shape({
-    leading: PropTypes.bool,
-    trailing: PropTypes.bool,
-  }),
-  children: PropTypes.func.isRequired,
-};
-
-WithThrottle.defaultProps = {
-  options: undefined,
-};
 
 export default WithThrottle;
