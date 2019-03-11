@@ -25,7 +25,7 @@
     "test": "npm run unit",
     "dev": "cross-env NODE_ENV=development TARGET=desktop webpack-dev-server --inline --progress --hot --mode development --config build/webpack.config.js",
     "build:web": "rimraf dist/web && cross-env NODE_ENV=production webpack --inline --progress --mode production --config build/webpack.config.js",
-    "build:browser": "rollup --config build/rollup.config.js",
+    "build:browser": "rollup --config build/rollup.browser.js",
     "build:dev": "rollup --config build/rollup.config.js",
     "build": "npm run build:dev && npm run build:browser && npm run build:web",
     "coverage": "codecov -f __test__/coverage/coverage-final.json"
