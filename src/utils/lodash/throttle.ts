@@ -1,5 +1,17 @@
-import debounce from './debounce';
-import isObject from './isObject';
+// tslint:disable: no-var-requires
+const debounce = require('./debounce');
+const isObject = require('./isObject');
+
+interface IThrottleOptions {
+  leading?: boolean;
+  trailing?: boolean;
+}
+
+interface IThrottledFunction extends Function {
+  cancel: () => void;
+  flush: () => void;
+  pending: () => boolean;
+}
 
 /**
  * Creates a throttled function that only invokes `func` at most once per
@@ -49,7 +61,7 @@ import isObject from './isObject';
  * // Cancel the trailing throttled invocation.
  * jQuery(window).on('popstate', throttled.cancel)
  */
-function throttle(func, wait, options) {
+function throttle<T>(func: T, wait: number, options: IThrottleOptions): T & IThrottledFunction {
   let leading = true;
   let trailing = true;
 
@@ -62,9 +74,10 @@ function throttle(func, wait, options) {
   }
   return debounce(func, wait, {
     leading,
-    trailing,
     maxWait: wait,
+    trailing,
   });
 }
 
 export default throttle;
+export { IThrottleOptions, IThrottledFunction };
