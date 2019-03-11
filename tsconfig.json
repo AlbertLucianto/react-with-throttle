@@ -8,7 +8,9 @@
     "module": "es6",
     "target": "es5",
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node"
   },
   "include": [
     "./src/**/*"

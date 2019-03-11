@@ -870,10 +870,20 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/classnames@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
+  integrity sha512-rzOhiQ55WzAiFgXRtitP/ZUT8iVNyllEpylJ5zHzR4vArUvMB39GTk+Zon/uAM0JxEFAWnwsxC2gH8s+tZ3Myg==
+
 "@types/estree@0.0.39":
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
+
+"@types/is-number@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/is-number/-/is-number-3.0.1.tgz#94d2c21efb00a8650e7f1af1da735a829a861295"
+  integrity sha512-pq37o0bENAt4tSW3LgxPGS4pTVk3arg5PjclJpkwIDqblQ+WzBwJvirT09VIsgx7gx3EFdiJ3g3r+vx9Kpp1iw==
 
 "@types/istanbul-lib-coverage@^1.1.0":
   version "1.1.0"
@@ -890,11 +900,24 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.0.tgz#4c48fed958d6dcf9487195a0ef6456d5f6e0163a"
   integrity sha512-eItQyV43bj4rR3JPV0Skpl1SncRCdziTEK9/v8VwXmV6d/qOUO8/EuWeHBbCZcsfSHfzI5UyMJLCSXtxxznyZg==
 
+"@types/react-css-modules@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@types/react-css-modules/-/react-css-modules-4.6.2.tgz#ff6451cb848d5e49c074ce9820bb52073e028f82"
+  integrity sha512-jRgAsH//g6BHS/cINR90HE2GJWGZe5tLYilxFMY1zTns4BvQ8DUXMQg5333HVSGoj7bjkDLK/whrgfzdAattHg==
+
 "@types/react-dom@^16.8.2":
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.2.tgz#9bd7d33f908b243ff0692846ef36c81d4941ad12"
   integrity sha512-MX7n1wq3G/De15RGAAqnmidzhr2Y9O/ClxPxyqaNg96pGyeXUYPSvujgzEVpLo9oIP4Wn1UETl+rxTN02KEpBw==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-hot-loader@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-hot-loader/-/react-hot-loader-4.1.0.tgz#8e072b44331ad0182918228c5d2bf514646760de"
+  integrity sha512-N/+Ua6kSrehJ5vpu4b2tAG4NjMcXQPlStnkUzjNlPokae97sUDtj096WlgN3ApefCvggPjJPP5iutyZ5dKBNPQ==
+  dependencies:
+    "@types/node" "*"
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.8.7":
@@ -6938,10 +6961,10 @@ react-testing-library@^6.0.0:
     "@babel/runtime" "^7.3.1"
     dom-testing-library "^3.13.1"
 
-react-with-throttle@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-with-throttle/-/react-with-throttle-1.0.4.tgz#b618a1f96eb6db37fc6e37cc899d4f77f845f942"
-  integrity sha512-p/KwZq8I/WSBbbl8WdT4q4Di2cCoRlb+yGcUPfAkp470d6iYEA/3+7UeC+ni3tgo7zPP45nIyKF7LQ9070Urmg==
+react-with-throttle@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-with-throttle/-/react-with-throttle-1.0.5.tgz#b0f43282ffab98e917541c1c0859a048a00a0efe"
+  integrity sha512-TiO9jKd2jY32l3V7aK7FeR2MQpeOaTGZl5JLZYRgEVcX6Rt9/Q8HcA4tLonNOOugZdQfeFCFbvQNy2B7RsqQ4w==
 
 react@16.8:
   version "16.8.4"

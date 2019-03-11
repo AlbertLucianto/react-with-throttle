@@ -13,6 +13,6 @@
     "rulesDirectory": [],
     "rules": {
       "jsx-wrap-multiline": false,
-      "quotemark": [true, "single"]
+      "quotemark": [true, "single", "jsx-double"]
     }
 }
