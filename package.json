@@ -1,6 +1,6 @@
 {
   "name": "react-with-throttle",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Component for throttling value, preserving the declarative nature of React",
   "author": "Albert Lucianto <albertlucianto@gmail.com>",
   "main": "dist/index.umd.js",
