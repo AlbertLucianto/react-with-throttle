@@ -75,7 +75,7 @@
     "react-dom": "^16.5.2",
     "react-hot-loader": "^4.8.0",
     "react-testing-library": "^6.0.0",
-    "react-with-throttle": "^1.0.5",
+    "react-with-throttle": "^1.0.6",
     "rimraf": "^2.6.3",
     "rollup": "^1.4.1",
     "rollup-plugin-babel": "^4.3.2",
