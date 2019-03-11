@@ -4,17 +4,17 @@ import './style.scss';
 function ForkTag() {
   return (
     <a
-      styleName="fork-tag"
+      className="fork-tag"
       target="_blank"
       rel="noopener noreferrer"
       href="https://github.com/AlbertLucianto/react-with-throttle"
     >
       <img
         src="https://image.flaticon.com/icons/svg/25/25231.svg"
-        styleName="github-icon"
+        className="github-icon"
         alt=""
       />
-      <div styleName="fork-tag__description">Fork me</div>
+      <div className="fork-tag__description">Fork me</div>
     </a>
   );
 }

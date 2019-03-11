@@ -3,9 +3,9 @@ import './style.scss';
 
 function ScrollIcon() {
   return (
-    <div styleName="scroll-downs">
-      <div styleName="mousey">
-        <div styleName="scroller" />
+    <div className="scroll-downs">
+      <div className="mousey">
+        <div className="scroller" />
       </div>
     </div>
   );

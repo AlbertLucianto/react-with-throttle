@@ -8,19 +8,21 @@ import {
 interface IWithThrottleProps<T> {
   value: T;
   wait: number;
-  options: IThrottleOptions;
   children: (value: T) => JSX.Element|string;
+  options?: IThrottleOptions;
 }
 
 interface IUpdateThrottleOptions {
   wait: number;
-  options: IThrottleOptions;
+  options?: IThrottleOptions;
 }
 
 type UpdateValueCallback<T> = (value: T, pending: boolean) => void;
 
 /**
- * Using non-reactive attribute `value`.
+ * Component for throttling value, preserving the declarative nature of React.
+ *
+ * Implementation-wise using non-reactive attribute `value`.
  * This is by far the most straightforward way to
  * handle throttling and avoid unnecessary rerendering.
  */
